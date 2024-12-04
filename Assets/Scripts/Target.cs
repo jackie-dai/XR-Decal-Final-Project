@@ -31,8 +31,8 @@ public class Target : MonoBehaviour
         if (other.tag == "Apple") 
         {
             Apple a = other.gameObject.GetComponent<Apple>();
-            Debug.Log("ouch");
             targetNumber -= a.GetPoints();
+            Destroy(a.gameObject);
             UpdateUI();
             if (targetNumber <= 0)
             {
@@ -46,12 +46,14 @@ public class Target : MonoBehaviour
     {
 
         List<List<int>> combinations = FindCombinations(target);
-        List<int> combo = combinations[2];
-        for (int i = 0; i < combo.Count; i++)
+        List<List<int>> slice = combinations.GetRange(2, 5);
+        for (int i = 0; i < slice.Count; i++)
         {
-            Apple newApple = Instantiate(applePrefab, spawnPosition.transform.position, Quaternion.identity).GetComponent<Apple>();
-            newApple.SetPoints(combo[i]);
-            
+            for (int j = 0; j < slice[i].Count; j++)
+            {
+                Apple newApple = Instantiate(applePrefab, spawnPosition.transform.position, Quaternion.identity).GetComponent<Apple>();
+                newApple.SetPoints(slice[i][j]);
+            }
         }
     }
 

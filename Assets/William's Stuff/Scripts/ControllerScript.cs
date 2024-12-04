@@ -13,7 +13,7 @@ public class ControllerScript : MonoBehaviour
     void Start()
     {
         // Set initial cube's position in front of user
-        transform.position = sceneCamera.transform.position + sceneCamera.transform.forward * 3.0f;
+        //transform.position = sceneCamera.transform.position + sceneCamera.transform.forward;
     }
 
     // Update is called once per frame

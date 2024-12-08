@@ -9,9 +9,11 @@ public class Target : MonoBehaviour
     private int targetNumber;
     #endregion
 
+    #region Serialized Variables
     [SerializeField] private TextMeshProUGUI scoreUI;
     [SerializeField] private GameObject applePrefab;
     [SerializeField] private GameObject spawnPosition;
+    #endregion
 
     #region Editor Variables
     [SerializeField] private int max = 20;
@@ -47,6 +49,10 @@ public class Target : MonoBehaviour
 
         List<List<int>> combinations = FindCombinations(target);
         List<List<int>> slice = combinations.GetRange(2, 5);
+
+        // beginning position = transform.position - (offset * (num_apples / 2))
+        float offset = 10f;
+        //Vector3 startPos = spawnPosition.transform.position - (offset * (slice.Count / 2));
         for (int i = 0; i < slice.Count; i++)
         {
             for (int j = 0; j < slice[i].Count; j++)

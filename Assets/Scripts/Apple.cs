@@ -13,6 +13,7 @@ public class Apple : MonoBehaviour
     #region Private Variables
     private Vector3 startPos;
     private Rigidbody rb;
+    private Quaternion initialRotation;
     #endregion
 
     #region Unity Functions
@@ -22,12 +23,22 @@ public class Apple : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        initialRotation = rb.rotation;
+    }
+
     private void Update()
     {
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
-            rb.velocity = Vector3.zero;
             transform.position = startPos;
+            transform.rotation = initialRotation;
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
         }
     }
     #endregion

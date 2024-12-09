@@ -7,6 +7,7 @@ public class Target : MonoBehaviour
 {
     #region Private Variables
     private int targetNumber;
+    private Quaternion initialRotation;
     #endregion
 
     #region Serialized Variables
@@ -18,12 +19,14 @@ public class Target : MonoBehaviour
     #region Editor Variables
     [SerializeField] private int max = 20;
     [SerializeField] private int min = 5;
+    [SerializeField] private float offset = 1f;
     #endregion
 
     #region Unity Functions
     private void Awake()
     {
         targetNumber = Random.Range(min, max);
+        initialRotation = transform.rotation;
         UpdateUI();
         SpawnApples(targetNumber);
     }
@@ -48,18 +51,17 @@ public class Target : MonoBehaviour
     {
 
         List<List<int>> combinations = FindCombinations(target);
-        List<List<int>> slice = combinations.GetRange(2, 5);
+        List<List<int>> slice = combinations.GetRange(2, 4);
+        List<int> sums = FlattenNestedList(slice);
 
         // beginning position = transform.position - (offset * (num_apples / 2))
-        float offset = 10f;
-        //Vector3 startPos = spawnPosition.transform.position - (offset * (slice.Count / 2));
-        for (int i = 0; i < slice.Count; i++)
+        Vector3 startPos = spawnPosition.transform.position - new Vector3(offset * (sums.Count / 2), 0, 0);
+
+        for (int i = 0; i < sums.Count; i++)
         {
-            for (int j = 0; j < slice[i].Count; j++)
-            {
-                Apple newApple = Instantiate(applePrefab, spawnPosition.transform.position, Quaternion.identity).GetComponent<Apple>();
-                newApple.SetPoints(slice[i][j]);
-            }
+            Apple newApple = Instantiate(applePrefab, startPos + new Vector3(offset * i, 0, 0), initialRotation).GetComponent<Apple>();
+            newApple.SetPoints(sums[i]);
+            
         }
     }
 
@@ -75,49 +77,57 @@ public class Target : MonoBehaviour
         // 3 + 2
         // 4 + 1
 
-        // Result to store all combinations
         List<List<int>> result = new List<List<int>>();
 
-        // Stack for iterative backtracking
         Stack<(List<int>, int, int)> stack = new Stack<(List<int>, int, int)>();
 
-        // Start with an empty combination, remaining sum is target, and starting number is 1
         stack.Push((new List<int>(), target, 1));
 
         while (stack.Count > 0)
         {
-            // Pop the current state from the stack
             var (currentCombination, remainingSum, start) = stack.Pop();
 
-            // If remaining sum is 0, we've found a valid combination
             if (remainingSum == 0)
             {
                 result.Add(new List<int>(currentCombination));
                 continue;
             }
 
-            // Iterate through possible numbers starting from 'start'
             for (int i = start; i <= target; i++)
             {
-                if (i > remainingSum) break; // No need to continue if the number exceeds the remaining sum
+                if (i > remainingSum) break;
 
-                // Create a new combination with the current number added
                 var newCombination = new List<int>(currentCombination) { i };
-
-                // Push the new state to the stack
-                stack.Push((newCombination, remainingSum - i, i)); // Allow reuse of the current number
+                stack.Push((newCombination, remainingSum - i, i)); 
             }
         }
 
         return result;
     }
 
-    void PrintNestedList<T>(List<List<T>> nestedList)
+    private void PrintList(List<int> list)
+    {
+        Debug.Log("List contents: " + string.Join(", ", list));
+    }
+
+    private void PrintNestedList<T>(List<List<T>> nestedList)
     {
         foreach (var sublist in nestedList)
         {
             Debug.Log($"[{string.Join(", ", sublist)}]");
         }
+    }
+
+    private List<int> FlattenNestedList(List<List<int>> nestedLists)
+    {
+        List<int> flatList = new List<int>();
+
+        foreach (var sublist in nestedLists)
+        {
+            flatList.AddRange(sublist); 
+        }
+
+        return flatList;
     }
 
     private void UpdateUI()

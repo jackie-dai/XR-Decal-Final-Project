@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/William's Stuff/William - Physics Simulation.unity
     guid: ac4f972517f0c324e831927b59b75133
+  - enabled: 1
+    path: Assets/Scenes/UI.unity
+    guid: 372188934f5ee4a85818c7e8db59c470
+  - enabled: 1
+    path: Assets/Scenes/Target.unity
+    guid: 51219692e0a2ccf49914c1c93575e6e5
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f9b337b3e09910c44be751b8a9ccdb3f, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: abfc21083926b1541abd77bfb24c19db, type: 2}

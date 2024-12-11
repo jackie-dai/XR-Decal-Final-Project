@@ -7,13 +7,15 @@ public class Target : MonoBehaviour
 {
     #region Private Variables
     private int targetNumber;
-    private Quaternion initialRotation;
+    private List<GameObject> apples = new List<GameObject>();
+    private GameManager gameManager;
     #endregion
 
     #region Serialized Variables
     [SerializeField] private TextMeshProUGUI scoreUI;
     [SerializeField] private GameObject applePrefab;
     [SerializeField] private GameObject spawnPosition;
+    [SerializeField] private int player = 1;
     #endregion
 
     #region Editor Variables
@@ -26,9 +28,35 @@ public class Target : MonoBehaviour
     private void Awake()
     {
         targetNumber = Random.Range(min, max);
-        initialRotation = transform.rotation;
         UpdateUI();
         SpawnApples(targetNumber);
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("Game Manager not found");
+        }
+    }
+
+    public void Reset()
+    {
+        DestroyAllApples();
+        targetNumber = Random.Range(min, max);
+        UpdateUI();
+        SpawnApples(targetNumber);
+    }
+
+    public void AssignPlayer(int playerChoice)
+    {
+        player = playerChoice;
+    }
+
+    private void DestroyAllApples()
+    {
+        // Destroy all apples
+        foreach (var apple in apples)
+        {
+            Destroy(apple);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,9 +67,12 @@ public class Target : MonoBehaviour
             targetNumber -= a.GetPoints();
             Destroy(a.gameObject);
             UpdateUI();
-            if (targetNumber <= 0)
+            if (targetNumber == 0)
             {
-                Destroy(this.gameObject);
+                gameManager.RoundOver(player);
+            } else if (targetNumber < 0) 
+            { 
+                this.Reset();
             }
         }
     }
@@ -59,9 +90,9 @@ public class Target : MonoBehaviour
 
         for (int i = 0; i < sums.Count; i++)
         {
-            Apple newApple = Instantiate(applePrefab, startPos + new Vector3(offset * i, 0, 0), initialRotation).GetComponent<Apple>();
+            Apple newApple = Instantiate(applePrefab, startPos + new Vector3(offset * i, 0, 0), Quaternion.identity).GetComponent<Apple>();
             newApple.SetPoints(sums[i]);
-            
+            apples.Add(newApple.gameObject);
         }
     }
 

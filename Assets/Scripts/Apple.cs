@@ -30,7 +30,7 @@ public class Apple : MonoBehaviour
 
     private void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        /*if (OVRInput.GetDown(OVRInput.Button.One))
         {
             transform.position = startPos;
             transform.rotation = initialRotation;
@@ -39,7 +39,7 @@ public class Apple : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
-        }
+        }*/
     }
     #endregion
 

@@ -6,8 +6,10 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject target;
+
     [SerializeField] private TextMeshProUGUI playerOneText;
     [SerializeField] private TextMeshProUGUI playerTwoText;
+
     [SerializeField] private TextMeshProUGUI playerOneTimer;
     [SerializeField] private TextMeshProUGUI playerTwoTimer;
 
@@ -20,11 +22,24 @@ public class GameManager : MonoBehaviour
     private int score1;
     private int score2;
 
-    void Start()
+    void Awake()
     {
         score1 = 0; score2 = 0;
         timer = maxTimer;
         UpdateUI();
+        StartCoroutine(StartTimer());
+    }
+
+    IEnumerator StartTimer()
+    {
+        if (timer < 0)
+        {
+            // End game
+            UnityEngine.SceneManagement.SceneManager.LoadScene("UI");
+        }
+        timer -= 1;
+        UpdateUI();
+        yield return new WaitForSeconds(1f);
     }
 
     public void RoundOver(int winner)

@@ -9,14 +9,11 @@ public class ControllerScript : MonoBehaviour
     private Quaternion targetRotation;
     private float step;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Set initial cube's position in front of user
         //transform.position = sceneCamera.transform.position + sceneCamera.transform.forward;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Define step value for animation

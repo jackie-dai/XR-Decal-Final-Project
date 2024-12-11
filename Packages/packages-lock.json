@@ -230,6 +230,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.mobile.android-logcat": {
+      "version": "1.4.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.netcode.gameobjects": {
       "version": "1.9.1",
       "depth": 0,
@@ -277,6 +284,8 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.services.authentication": {
       "version": "2.7.4",
       "depth": 1,

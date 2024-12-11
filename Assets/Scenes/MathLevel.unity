@@ -2797,8 +2797,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1189024174}
-  playerOneText: {fileID: 1597306356}
+  playerOneText: {fileID: 1669761466}
   playerTwoText: {fileID: 2102345873}
+  playerOneTimer: {fileID: 1597306356}
+  playerTwoTimer: {fileID: 606326520}
   targetOne: {fileID: 1189024177}
   targetTwo: {fileID: 345882004}
 --- !u!1001 &847845113

@@ -32,14 +32,20 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartTimer()
     {
-        if (timer < 0)
+        while (true)
         {
-            // End game
-            UnityEngine.SceneManagement.SceneManager.LoadScene("UI");
+            if (timer < 0)
+            {
+                // End game
+                UnityEngine.SceneManagement.SceneManager.LoadScene("UI");
+            }
+            if (timer >= 0)
+            {
+                timer -= 1;
+            }
+            UpdateUI();
+            yield return new WaitForSeconds(1f);
         }
-        timer -= 1;
-        UpdateUI();
-        yield return new WaitForSeconds(1f);
     }
 
     public void RoundOver(int winner)

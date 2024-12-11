@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44202837, g: 0.4502243, b: 0.4737963, a: 1}
+  m_IndirectSpecularColor: {r: 0.442221, g: 0.45032346, b: 0.47408795, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -32224,7 +32224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed1e201909f1774d9ee6d5e2988be67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 0.08, y: 0.33354002, z: 0.05}
+  size: {x: 0.08, y: 0.33354, z: 0.05}
   expandingAxis: 1
   pointA: {fileID: 787327085}
   pointB: {fileID: 644339907}
@@ -33229,7 +33229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed1e201909f1774d9ee6d5e2988be67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 0.08, y: 0.33354002, z: 0.05}
+  size: {x: 0.08, y: 0.33354, z: 0.05}
   expandingAxis: 1
   pointA: {fileID: 858681308}
   pointB: {fileID: 1929992694}

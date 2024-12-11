@@ -6,20 +6,46 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject target;
+
     [SerializeField] private TextMeshProUGUI playerOneText;
     [SerializeField] private TextMeshProUGUI playerTwoText;
+
+    [SerializeField] private TextMeshProUGUI playerOneTimer;
+    [SerializeField] private TextMeshProUGUI playerTwoTimer;
 
     [SerializeField] private Target targetOne;
     [SerializeField] private Target targetTwo;
 
+    private int maxTimer = 30;
+    private int timer = 0;
     private int numOfPlayers = 1;
     private int score1;
     private int score2;
 
-    void Start()
+    void Awake()
     {
         score1 = 0; score2 = 0;
+        timer = maxTimer;
         UpdateUI();
+        StartCoroutine(StartTimer());
+    }
+
+    IEnumerator StartTimer()
+    {
+        while (true)
+        {
+            if (timer < 0)
+            {
+                // End game
+                UnityEngine.SceneManagement.SceneManager.LoadScene("UI");
+            }
+            if (timer >= 0)
+            {
+                timer -= 1;
+            }
+            UpdateUI();
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public void RoundOver(int winner)
@@ -31,7 +57,6 @@ public class GameManager : MonoBehaviour
         }
 
         targetOne.Reset();
-        Debug.Log("target one was reset");
         if (numOfPlayers > 1)
         {
             targetTwo.Reset();
@@ -42,12 +67,7 @@ public class GameManager : MonoBehaviour
     {
         playerOneText.text = "Player One: " + score1.ToString();
         playerTwoText.text = "Player Two: " + score2.ToString();
+        playerOneTimer.text = "Timer: " + timer.ToString();
+        playerTwoTimer.text = "Timer: " + timer.ToString();
     }
-
-    // round over(winner)
-    // increase score of winner
-    // spawn new target for player 1
-    // if numPlayers == 2
-    //  spawn new target for player 2
-    
 }

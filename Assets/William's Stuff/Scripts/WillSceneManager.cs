@@ -5,7 +5,7 @@ using UnityEngine;
 using Meta.XR.MRUtilityKit;
 using System.Collections.Generic;
 
-public class SceneManager : MonoBehaviour
+public class WillSceneManager : MonoBehaviour
 {
     public List<GameObject> tables = new List<GameObject>();
     public List<MeshRenderer> tableRenderers = new List<MeshRenderer>();

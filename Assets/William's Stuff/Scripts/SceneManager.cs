@@ -41,7 +41,7 @@ public class SceneManager : MonoBehaviour
 
             CreateTableBoxes();
 
-            //Destroy(roomObject);
+            Destroy(roomObject);
             lateStart = false;
         }
 

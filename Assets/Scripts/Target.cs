@@ -7,15 +7,21 @@ public class Target : MonoBehaviour
 {
     #region Private Variables
     private int targetNumber;
+    private List<GameObject> apples = new List<GameObject>();
+    private GameManager gameManager;
     #endregion
 
+    #region Serialized Variables
     [SerializeField] private TextMeshProUGUI scoreUI;
     [SerializeField] private GameObject applePrefab;
     [SerializeField] private GameObject spawnPosition;
+    [SerializeField] private int player = 1;
+    #endregion
 
     #region Editor Variables
     [SerializeField] private int max = 20;
     [SerializeField] private int min = 5;
+    [SerializeField] private float offset = 1f;
     #endregion
 
     #region Unity Functions
@@ -24,6 +30,33 @@ public class Target : MonoBehaviour
         targetNumber = Random.Range(min, max);
         UpdateUI();
         SpawnApples(targetNumber);
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("Game Manager not found");
+        }
+    }
+
+    public void Reset()
+    {
+        DestroyAllApples();
+        targetNumber = Random.Range(min, max);
+        UpdateUI();
+        SpawnApples(targetNumber);
+    }
+
+    public void AssignPlayer(int playerChoice)
+    {
+        player = playerChoice;
+    }
+
+    private void DestroyAllApples()
+    {
+        // Destroy all apples
+        foreach (var apple in apples)
+        {
+            Destroy(apple);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,12 +64,15 @@ public class Target : MonoBehaviour
         if (other.tag == "Apple") 
         {
             Apple a = other.gameObject.GetComponent<Apple>();
-            Debug.Log("ouch");
             targetNumber -= a.GetPoints();
+            Destroy(a.gameObject);
             UpdateUI();
-            if (targetNumber <= 0)
+            if (targetNumber == 0)
             {
-                Destroy(this.gameObject);
+                gameManager.RoundOver(player);
+            } else if (targetNumber < 0) 
+            { 
+                this.Reset();
             }
         }
     }
@@ -46,12 +82,17 @@ public class Target : MonoBehaviour
     {
 
         List<List<int>> combinations = FindCombinations(target);
-        List<int> combo = combinations[2];
-        for (int i = 0; i < combo.Count; i++)
+        List<List<int>> slice = combinations.GetRange(2, 4);
+        List<int> sums = FlattenNestedList(slice);
+
+        // beginning position = transform.position - (offset * (num_apples / 2))
+        Vector3 startPos = spawnPosition.transform.position - new Vector3(offset * (sums.Count / 2), 0, 0);
+
+        for (int i = 0; i < sums.Count; i++)
         {
-            Apple newApple = Instantiate(applePrefab, spawnPosition.transform.position, Quaternion.identity).GetComponent<Apple>();
-            newApple.SetPoints(combo[i]);
-            
+            Apple newApple = Instantiate(applePrefab, startPos + new Vector3(offset * i, 0, 0), Quaternion.identity).GetComponent<Apple>();
+            newApple.SetPoints(sums[i]);
+            apples.Add(newApple.gameObject);
         }
     }
 
@@ -67,49 +108,57 @@ public class Target : MonoBehaviour
         // 3 + 2
         // 4 + 1
 
-        // Result to store all combinations
         List<List<int>> result = new List<List<int>>();
 
-        // Stack for iterative backtracking
         Stack<(List<int>, int, int)> stack = new Stack<(List<int>, int, int)>();
 
-        // Start with an empty combination, remaining sum is target, and starting number is 1
         stack.Push((new List<int>(), target, 1));
 
         while (stack.Count > 0)
         {
-            // Pop the current state from the stack
             var (currentCombination, remainingSum, start) = stack.Pop();
 
-            // If remaining sum is 0, we've found a valid combination
             if (remainingSum == 0)
             {
                 result.Add(new List<int>(currentCombination));
                 continue;
             }
 
-            // Iterate through possible numbers starting from 'start'
             for (int i = start; i <= target; i++)
             {
-                if (i > remainingSum) break; // No need to continue if the number exceeds the remaining sum
+                if (i > remainingSum) break;
 
-                // Create a new combination with the current number added
                 var newCombination = new List<int>(currentCombination) { i };
-
-                // Push the new state to the stack
-                stack.Push((newCombination, remainingSum - i, i)); // Allow reuse of the current number
+                stack.Push((newCombination, remainingSum - i, i)); 
             }
         }
 
         return result;
     }
 
-    void PrintNestedList<T>(List<List<T>> nestedList)
+    private void PrintList(List<int> list)
+    {
+        Debug.Log("List contents: " + string.Join(", ", list));
+    }
+
+    private void PrintNestedList<T>(List<List<T>> nestedList)
     {
         foreach (var sublist in nestedList)
         {
             Debug.Log($"[{string.Join(", ", sublist)}]");
         }
+    }
+
+    private List<int> FlattenNestedList(List<List<int>> nestedLists)
+    {
+        List<int> flatList = new List<int>();
+
+        foreach (var sublist in nestedLists)
+        {
+            flatList.AddRange(sublist); 
+        }
+
+        return flatList;
     }
 
     private void UpdateUI()

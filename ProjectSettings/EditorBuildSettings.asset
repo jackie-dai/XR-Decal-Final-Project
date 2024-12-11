@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Target.unity
     guid: 51219692e0a2ccf49914c1c93575e6e5
+  - enabled: 1
+    path: "Assets/Samples/Meta XR Interaction \u200BSDK/69.0.2/Feature Scenes/PokeCanvas.unity"
+    guid: 13029ef4913eb58419d202e411552872
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f9b337b3e09910c44be751b8a9ccdb3f, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: abfc21083926b1541abd77bfb24c19db, type: 2}

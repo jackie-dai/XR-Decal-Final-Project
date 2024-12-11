@@ -17,7 +17,7 @@ MonoBehaviour:
   handTrackingSupport: 2
   handTrackingFrequency: 0
   handTrackingVersion: 2
-  anchorSupport: 1
+  anchorSupport: 0
   sharedAnchorSupport: 0
   renderModelSupport: 0
   trackedKeyboardSupport: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   skipUnneededShaders: 0
   enableIL2CPPLTO: 0
   focusAware: 1
-  requiresSystemKeyboard: 0
+  requiresSystemKeyboard: 1
   experimentalFeaturesEnabled: 0
   insightPassthroughEnabled: 0
   _insightPassthroughSupport: 1

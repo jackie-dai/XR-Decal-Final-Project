@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44202837, g: 0.4502243, b: 0.4737963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2245,7 +2245,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 302807359898109700, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 302807359957465670, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 302807360552472518, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -2297,6 +2305,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1969387359558922146, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2661409041641398641, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2321,8 +2333,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7759724808738698245, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7759724808738698245, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+    - {fileID: 4803350342428427722, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+    - {fileID: 4333250167009239430, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+    - {fileID: 2661409041641398641, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+    - {fileID: 4728223010030032073, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
+    - {fileID: 6758584566936136441, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 690001815883393992, guid: c19a2d64274b96e46aa2fae15534447c, type: 3}
       insertIndex: 2

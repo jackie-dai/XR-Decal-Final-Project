@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject target;
-    [SerializeField] private GameObject targetOneSpawn;
-    [SerializeField] private GameObject targetTwoSpawn;
+    [SerializeField] private TextMeshProUGUI playerOneText;
+    [SerializeField] private TextMeshProUGUI playerTwoText;
 
     [SerializeField] private Target targetOne;
     [SerializeField] private Target targetTwo;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score1 = 0; score2 = 0;
+        UpdateUI();
     }
 
     public void RoundOver(int winner)
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
         if (winner > 0)
         {
             if (winner == 1) score1++; else if (winner == 2) score2++;
+            UpdateUI();
         }
 
         targetOne.Reset();
@@ -33,6 +36,12 @@ public class GameManager : MonoBehaviour
         {
             targetTwo.Reset();
         }
+    }
+
+    private void UpdateUI()
+    {
+        playerOneText.text = "Player One: " + score1.ToString();
+        playerTwoText.text = "Player Two: " + score2.ToString();
     }
 
     // round over(winner)

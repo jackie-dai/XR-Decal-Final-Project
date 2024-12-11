@@ -18,6 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Target.unity
     guid: 51219692e0a2ccf49914c1c93575e6e5
   - enabled: 1
+    path: Assets/Scenes/MathLevel.unity
     path: Assets/William's Stuff/William - Physics Simulation.unity
     guid: ac4f972517f0c324e831927b59b75133
   - enabled: 1
